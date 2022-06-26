@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!-- Brian's Brain cellular automata -->
+<html>
+  <title>Brian's Brain</title>
+  <head>
+    <script type="application/javascript">
+      var canvas, ctx;
+      var interval;
+      var width, height;
+      var numcells, cellsize;
+      var colorscheme;
+      var alivecolor, dyingcolor, deadcolor;
+      
+      function setup() {
+      	width = 600;
+      	height = 600;
+      	canvas = document.getElementById("scrawl");
+      	ctx = canvas.getContext("2d");
+      	numcells = 180;
+      	cellsize = 500 / numcells;
+          
+        r = randrange(1, 8);
+        if (r === 1) {
+          colorscheme = "blue";
+          alivecolor = "#F0FFFF";
+          dyingcolor = "#0000FF";
+          deadcolor = "#191970";
+        }
+        else if (r === 2) {
+          colorscheme = "red";
+          alivecolor = "#FFFF00";
+          dyingcolor = "#FF4500";
+          deadcolor = "#8B0000";
+        }
+        else if (r === 3) {
+          colorscheme = "gray";
+          alivecolor = "#D3D3D3";
+          dyingcolor = "#808080";
+          deadcolor = "#000000";
+        }
+        else if (r === 4) {
+          colorscheme = "green";
+          alivecolor = "#ADFF2F";
+          dyingcolor = "#32CD32";
+          deadcolor = "#20B2AA";
+        }
+        else if (r === 5) {
+          colorscheme = "arcade";
+          alivecolor = "#FFFF00";
+          dyingcolor = "#0000FF";
+          deadcolor = "#000000";
+        }
+        else if (r === 6) {
+          colorscheme = "wonder";
+          alivecolor = "#FFFF00";
+          dyingcolor = "#9ACD32";
+          deadcolor = "#ADD8E6";
+        }
+        else if (r === 7) {
+          colorscheme = "modern";
+          alivecolor = "#000000";
+          dyingcolor = "#808080";
+          deadcolor = "#FFFFFF";
+        }
+        else if (r === 8) {
+          colorscheme = "night";
+          alivecolor = "#FFFFFF";
+          dyingcolor = "#0000FF";
+          deadcolor = "#000000";
+        }
+    
+        console.log("colorscheme:", colorscheme);
+        initialize();
+      	interval = setInterval(run, 70);
+      }
+
+      const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      
+      
+      function initialize() {
+        new_board = new Array(numcells);
+        old_board = new Array(numcells);
+          
+      	for (i = 0; i < new_board.length; ++i) {
+      		new_board[i] = new Array(numcells);
+          old_board[i] = new Array(numcells);
+      	}
+        
+        for (i = 0; i < numcells; ++i) {
+          for (j = 0; j < numcells; ++j) {
+            old_board[i][j] = 0;
+          }
+        }
+          
+        for (i = 0; i < 18; ++i) {
+          seed();
+        }
+      }
+      
+      function alive_neighbours(i, j) {
+        n = 0;
+        /*
+        if (old_board[(((i - 1) % numcells) + numcells) % numcells][j] === 1) n++;
+        if (old_board[(((i + 1) % numcells) + numcells) % numcells][j] === 1) n++;
+        if (old_board[i][(((j - 1) % numcells) + numcells) % numcells] === 1) n++;
+        if (old_board[i][(((j + 1) % numcells) + numcells) % numcells] === 1) n++;      
+        if (old_board[(((i + 1) % numcells) + numcells) % numcells][(((j + 1) % numcells) + numcells) % numcells] === 1) n++;
+        if (old_board[(((i + 1) % numcells) + numcells) % numcells][(((j - 1) % numcells) + numcells) % numcells] === 1) n++;
+        if (old_board[(((i - 1) % numcells) + numcells) % numcells][(((j - 1) % numcells) + numcells) % numcells] === 1) n++;
+        if (old_board[(((i - 1) % numcells) + numcells) % numcells][(((j + 1) % numcells) + numcells) % numcells] === 1) n++;
+        */
+        if (old_board[i - 1][j] === 1) n++;
+        if (old_board[i + 1][j] === 1) n++;
+        if (old_board[i][j - 1] === 1) n++;
+        if (old_board[i][j + 1] === 1) n++;      
+        if (old_board[i + 1][j + 1] === 1) n++;
+        if (old_board[i + 1][j - 1] === 1) n++;
+        if (old_board[i - 1][j - 1] === 1) n++;
+        if (old_board[i - 1][j + 1] === 1) n++;
+        return n;
+      }
+      
+      function change() {
+      	for (i = 1; i < numcells - 1; ++i) {
+          for (j = 1; j < numcells - 1; ++j) {
+            an = alive_neighbours(i, j);
+            
+            if (old_board[i][j] === 0) {
+              if (an === 2) {
+                new_board[i][j] = 1;
+              }
+              else {
+                new_board[i][j] = 0;
+              }
+            }
+            else if (old_board[i][j] === 1) {
+              new_board[i][j] = 2;
+            }
+            else if (old_board[i][j] === 2) {
+              new_board[i][j] = 0;
+            }
+          }
+      	}
+      }
+      
+      function seed() {   
+        for (i = -40; i < 40; i += 2) {
+          for (j = -40; j < 40; j += 2) {
+            if (i * i + j * j > 900) continue;
+            if (randrange(0, 100) < 30) {
+              old_board[numcells / 2 + i][numcells / 2 + j] = 1;
+            }
+            else {
+              old_board[numcells / 2 + i][numcells / 2 + j] = 2;
+            }      
+          }
+        }
+      }
+      
+      function draw() {
+        for (i = 0; i < numcells; ++i) {
+          for (j = 0; j < numcells; ++j) {
+            if (new_board[i][j] === 1) {
+              ctx.fillStyle = alivecolor;
+            }						
+            else if (new_board[i][j] === 2) {
+              ctx.fillStyle = dyingcolor;
+            }
+            else {
+              ctx.fillStyle = deadcolor;
+            } 
+            ctx.fillRect(i * cellsize, j * cellsize, cellsize, cellsize);
+            old_board[i][j] = new_board[i][j];
+          }
+      	}
+      }
+      
+      function randrange(min, max) {
+        return Math.floor(Math.random() * (max + 1 - min)) + min;
+      }
+      
+      function run() {
+      	change();
+      	draw();
+      }
+      	
+    </script>
+  </head>
+  <style>
+    body {}
+  </style>
+  <body onload="setup()">
+    <center>
+      <br> 
+      <div style="width: 100%"><span style="font-family:Arial Black, Gadget, sans-serif; font-size: 1.5em; color:black;">BRIAN'S BRAIN</div>
+      <br>
+      <canvas id="scrawl" width="500" height="500"></canvas>
+      <br>
+      <div style="width: 100%">
+      <span style="font-family:Arial, Helvetica, serif;"> 
+      <a href="https://en.wikipedia.org/wiki/Brian%27s_Brain" target="_blank">Brian's Brain</a></span>
+      <div style="width: 100%"><span style="font-family:Times New Roman, Times, serif;"></div>
+      <div>
+        This cellular automata is much like the Game of Life, however there are three possible stages for each cell: alive, dying, or dead.
+        <br>
+        The alive cells are represented by the lightest color, the dying by the second-lightest color, and the dead by the darkest color.
+        <br>
+        Each cell changes according to the following rules:
+        <br>
+        1) If a cell is alive, it becomes dying.
+        <br>
+        2) If a cell is dying, it becomes dead.
+        <br>
+        3) If a cell is dead, if it has only two alive neighbours, it becomes alive.
+        <br>
+        <br>
+        <button onClick="window.location.reload();">Refresh page for different colors!</button>
+      </div>
+    </center>
+  </body>
+  <!-- If you're looking at this then you're a geek -->
+</html>

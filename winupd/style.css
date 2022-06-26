@@ -1,0 +1,113 @@
+body {
+     background: #0078d7;
+     overflow: hidden;
+     margin: 0;
+     cursor: none;
+}
+.blank {
+     width: 100%;
+     text-align: center;
+     opacity: 0;
+     line-height: 4000px;
+}
+.animation {
+     width: 50px;
+     height: 50px;
+     margin: auto;
+}
+.animation .circle {
+     position: absolute;
+     width: 50px;
+     height: 50px;
+     opacity: 0;
+     transform: rotate(225deg);
+     animation-iteration-count: infinite;
+     animation-name: orbit;
+     animation-duration: 5.5s;
+}
+.animation .circle:after {
+     content: "";
+     position: absolute;
+     width: 6px;
+     height: 6px;
+     border-radius: 5px;
+     background: #fff;
+}
+.animation .circle:nth-child(2) {
+     animation-delay: 240ms;
+}
+.animation .circle:nth-child(3) {
+     animation-delay: 480ms;
+}
+.animation .circle:nth-child(4) {
+     animation-delay: 720ms;
+}
+.animation .circle:nth-child(5) {
+     animation-delay: 960ms;
+}
+.animation .bg {
+     position: absolute;
+     width: 70px;
+     height: 70px;
+     margin-left: -16px;
+     margin-top: -16px;
+     border-radius: 13px;
+     background-color: #0078d7;
+}
+ @keyframes orbit {
+    0% {
+         transform: rotate(225deg);
+         opacity: 1;
+         animation-timing-function: ease-out;
+    }
+    7% {
+         transform: rotate(345deg);
+         animation-timing-function: linear;
+    }
+    30% {
+         transform: rotate(455deg);
+         animation-timing-function: ease-in-out;
+    }
+    39% {
+         transform: rotate(690deg);
+         animation-timing-function: linear;
+    }
+    70% {
+         transform: rotate(815deg);
+         opacity: 1;
+         animation-timing-function: ease-out;
+    }
+    75% {
+         transform: rotate(945deg);
+         animation-timing-function: ease-out;
+    }
+    76% {
+         transform: rotate(945deg);
+         opacity: 0;
+    }
+    100% {
+         transform: rotate(945deg);
+         opacity: 0;
+    }
+}
+.text {
+     text-align: center;
+     color: rgb(255, 255, 255);
+     font-family: "Segoe UI Light", "Segoe UI", "Open Sans", sans-serif;
+     font-size: 20px;
+     line-height: 10px;
+}
+::-moz-selection {
+     background: rgba(0, 0, 0, 0);
+}
+::selection {
+     background: rgba(0, 0, 0, 0);
+}
+.animation-div {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translateX(-50%) translateY(-50%);
+     width: 100%;
+}
+ 

@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>Swear like Shakespeare</title>
+    <script language="javascript"><!-- 
+      function makeArray() {
+        this[0] = makeArray.arguments.length - 1;
+        for (i = 1; i < (makeArray.arguments.length); i++) this[i] = makeArray.arguments[i];
+      }
+      
+      rnd.today = new Date();
+      rnd.seed = rnd.today.getTime();
+      function rnd() { rnd.seed = (rnd.seed * 9301 + 49297) % 233280; return rnd.seed / (233280.0); }
+      function rand(number) { return Math.ceil(rnd() * number); }
+      // end randomizer.
+      
+      var thou = new makeArray("Thou", "Verily, ye be a", "Ye", "Thou be a", "Forsooth! Thou art a", "Thou cans't not be but a", 
+                          "Thou art truly a", "Verily, thou art naught but a", "Thou art a", "S'wounds thou art a", "Ye art a", 
+                          "Thou cans't but be a", "Ho! Ye art a", "I bite my thumb at ye", "Y'art but a", "Y'art be naught but a", 
+                          "Verily, ye cans't not but be a", "Nary 'ave I seen such as ye");
+      
+      var adj1 = new makeArray("artless", "bawdy", "beslubbering", "bootless", "churlish", "cockered", "clouted", "craven", "currish", "dankish",
+                          "dissembling", "droning", "errant", "fawning", "fobbing", "froward", "frothy", "gleeking", "goatish", "gorbellied",
+                          "impertinent", "infectious", "jarring", "loggerheaded", "lumpish", "mammering", "mangled", "mewling", "paunchy",
+                          "pribbling", "puking", "puny", "quailing", "rank", "reeky", "roguish", "ruttish", "saucy", "spleeny", "spongy",
+                          "surly", "tottering", "unmuzzled", "vain", "venomed", "villainous", "warped", "wayward", "weedy", "yeasty");
+      
+      var adj2 = new makeArray("base-court", "bat-fowling", "beef-witted", "beetle-headed", "boil-brained", "clapper-clawed", "clay-brained",
+                          "common-kissing", "crook-pated", "dismal-dreaming", "dizzy-eyed", "doghearted", "dread-bolted", "earth-vexing",
+                          "elf-skinned", "fat-kidneyed", "fen-sucked", "flap-mouthed", "fly-bitten", "folly-fallen", "fool-born",
+                          "full-gorged", "guts-griping", "half-faced", "hasty-witted", "hedge-born", "hell-hated", "idle-headed",
+                          "ill-breeding", "ill-nurtured", "knotty-pated", "milk-livered", "motley-minded", "onion-eyed", "plume-plucked",
+                          "pottle-deep", "pox-marked", "reeling-ripe", "rough-hewn", "rude-growing", "rump-fed", "shard-borne", "sheep-biting",
+                          "spur-galled", "swag-bellied", "tardy-gaited", "tickle-brained", "toad-spotted", "urchin-snouted", "weather-bitten");
+      
+      var noun = new makeArray("apple-john", "apple-sucker", "baggage", "barnacle", "bladder", "bladder-horn", "boar-pig", "bugbear", "bum-bailey",
+                          "canker-blossom", "clack-dish", "clotpole", "coxcomb", "codpiece", "death-token", "dewberry", "flap-dragon", "flax-wench",
+                          "flirt-gill", "foot-licker", "fustilarian", "giglet", "gudgeon", "haggard", "harpy", "hedge-pig", "horn-beast",
+                          "hugger-mugger", "jolthead", "lewdster", "lout", "maggot-pie", "malt-worm", "mammet", "measle", "minnow", "miscreant",
+                          "moldwarp", "mumble-news", "nut-hook", "pigeon-egg", "pignut", "puttock", "pumpion", "ratsbane", "scut", "skainsmate",
+                          "strumpet", "varlet", "vassal", "whey-face", "wagtail", "wiggle-muffer", "wimpy-stick", "wort-toad", "womp-rat", "zapper");
+      //  -->
+    </script>
+    <style type="text/css">
+      <!--
+        DIV { font-family: Brush Script MT, Brush Script Std, cursive; display: block; position: absolute; }
+        .thou { font-size: 40px; color: #4682b4; top: 20px; left: 40px }
+        .adj1{ font-size: 60px; color: #6495ed; font-weight: bold; top: 70PX; left: 100px }
+        .adj2{ font-size: 80px; color: #808000; font-weight: bold; top: 130px; left: 210px }
+        .noun{ font-size: 160px; color:  #ffff00; font-weight: bold; top: 180px; left: 380px }
+        //  -->
+    </style>
+    <script language="javascript"><!-- 
+      rand_thou = rand(thou[0]);
+      rand_adj1 = rand(adj1[0]);
+      rand_adj2 = rand(adj2[0]);
+      rand_noun = rand(noun[0]);
+      msg = '<div class="thou" align=left>' + thou[rand_thou] + '</div>' +
+            '<div class="adj1" align=left>' + adj1[rand_adj1] + '</div>' +
+      	    '<div class="adj2" align=left>' + adj2[rand_adj2] + '</div>' +
+      	    '<div class="noun" align=left>' + noun[rand_noun] + '</div>';
+      document.write(msg);
+      // end hide -->
+    </script>
+  </head>
+  <body bgcolor="#00ffff" link="#000000" vlink="#000000"></body>
+</html>
