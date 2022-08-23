@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>somethingfromnothing</title>
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+    </head>
+    <body>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+        <script>
+            function setup() {
+                createCanvas(windowWidth, windowHeight);
+                background('black');
+                angleMode(DEGREES);
+            }
+            function draw() {
+            	// something from nothing
+                let noisXSpeed;
+                let noiseYSpeed;
+                noiseXSpeed = 2;
+                noiseYSpeed = 40;
+                const noiseX = noise(frameCount / noiseXSpeed) * windowWidth;
+                const noiseY = noise((frameCount + 100) / noiseYSpeed) * windowHeight;
+            
+                push();
+                textStyle('bold');
+                fill('white');
+                const x = constrain(noiseX, 0, windowWidth);
+                const y = constrain(noiseY, 0, windowHeight);
+                rotate((noise(frameCount / 1000) * sin(frameCount) * 1));
+                text('nothing', x, y);
+                pop();
+            
+                push();
+                fill('black');
+                textStyle('bold');
+                textAlign(CENTER);
+                textSize(100);
+                text('something', windowWidth / 2, windowHeight / 2);
+                pop();
+            }     
+        </script>
+    </body>
+</html>
